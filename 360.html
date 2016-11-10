@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>360 View</title>
+		<meta name="viewport" content="initial-scale=1.0" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1">
+		<script src="threejs/three.js"></script>
+		<script src="threejs/Projector.js"></script>
+		<script src="threejs/CanvasRenderer.js"></script>
+		<script src="https://mrdoob.neocities.org/js/app.js"></script>
+		<script src="threejs/photo-sphere-viewer.min.js"></script>
+		<style>
+			html, body {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			#container {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="container"></div>
+
+		<script>
+		
+			function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+					results = regex.exec(location.search);
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}		
+		
+			var div = document.getElementById('container');
+			var image = getParameterByName('image');
+			var zoom = getParameterByName('zoom');
+			if( image=="" ) image = '1030';
+			var PSV = new PhotoSphereViewer({
+					panorama: 'https://www.chesterfield.mo.us/cmss_files/imagelibrary/IMG_'+image+'.JPG',
+					container: div,
+					time_anim: 1000,
+					navbar: true,
+					//caption: "River Edge Park 360",
+					anim_speed: '-1rpm',
+					gyroscope: true,
+					fisheye: true,
+					//longitude_range: [0, Math.PI/4],
+					//latitude_range: [-Math.PI/4, Math.PI/4],
+					//default_long: Math.PI/2,
+					//min_fov: 100,
+					//max_fov: 170,
+					navbar_style: {
+						backgroundColor: 'rgba(58, 67, 77, 0.7)'
+					}/*,
+					navbar: [
+						'autorotate',
+						'zoom',
+						'caption'
+					]
+					,
+					lang: {
+						autorotate: 'Automatic rotation',
+						zoom: 'Zoom',
+						zoomOut: 'Zoom out',
+						zoomIn: 'Zoom in',
+						fullscreen: 'Fullscreen'
+					},*/
+				});
+			if(zoom!="")
+				PSV.zoom(zoom);
+
+			/*PSV.on('ready', function() {
+			  // do something when the viewer is ready to render
+			  PSV.setCaption("Chesterfield City Hall<b>&copy; City of Chesterfield</b>");
+			});*/
+			//PSV.setCaption("Chesterfield City Hall<b>&copy; City of Chesterfield</b>")
+			
+			
+			
+			/*PSV.rotate({
+			  longitude: Math.PI/2,
+			  latitude: 0
+			});
+			PSV.animate({
+			  x: 1200,
+			  y: -500
+			}, 2000);*/
+
+		</script>
+	</body>
+
+</html>
